@@ -17,7 +17,6 @@ interface Item {
 interface Point {
   id: number;
   image: string;
-  image_url: string;
   name: string;
   latitude: number;
   longitude: number;
@@ -38,7 +37,7 @@ export default function Points() {
   const [items, setItems] = useState<Item[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
-   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     async function loadPosition() {
@@ -126,7 +125,7 @@ export default function Points() {
                 longitudeDelta: 0.014,
               }}
             >
-              {points.map((point) => (
+              {points.map(point => (
                 <Marker
                   key={String(point.id)}
                   style={styles.mapMarker}
@@ -137,11 +136,11 @@ export default function Points() {
                   }}
                 >
                   <View style={styles.mapMarkerContainer}>
-                    <Image
+                    <Image                    
                       style={styles.mapMarkerImage}
                       source={{
-                        uri: point.image_url,
-                      }}
+                        uri: point.image,
+                      }}                     
                     />
                     <Text style={styles.mapMarkerTitle}>{point.name}</Text>
                   </View>
@@ -229,12 +228,14 @@ const styles = StyleSheet.create({
 
   mapMarkerImage: {
     width: 90,
-    height: 45,
+    height: 50,
     resizeMode: "cover",
   },
 
   mapMarkerTitle: {
     flex: 1,
+    flexDirection: 'row',
+    textAlign: "center",
     fontFamily: "Roboto_400Regular",
     color: "#FFF",
     fontSize: 13,
